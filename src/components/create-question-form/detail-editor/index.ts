@@ -1,1 +1,1 @@
-export * from "./rich-text-editor";
+export * from "./detail-editor.tsx";

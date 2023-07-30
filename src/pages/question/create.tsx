@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { DetailEditor } from "../../components/create-question-form/detail-editor/detail-editor.tsx";
+import { DetailEditor } from "../../components/create-question-form/detail-editor";
 import { UploadImage } from "../../components/create-question-form/upload-image";
 import { TagsInput } from "../../components/create-question-form/tags-input";
 import { NavLink } from "react-router-dom";
