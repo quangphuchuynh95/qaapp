@@ -1,5 +1,9 @@
-import {Text} from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 
 export function ListQuestionPage() {
-  return <Text>Add question list here</Text>;
+  return (
+    <Box>
+      <Text>Add question list here</Text>
+    </Box>
+  );
 }

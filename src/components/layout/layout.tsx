@@ -2,9 +2,7 @@ import { AppShell, Container } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 import { Header } from "./header.tsx";
 
-export interface LayoutProps {}
-
-export function Layout({}: LayoutProps) {
+export function Layout() {
   return (
     <AppShell
       padding="md"
