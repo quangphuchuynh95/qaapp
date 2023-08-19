@@ -21,3 +21,9 @@ export interface CreateThreadForm {
   category?: number;
   parent?: number;
 }
+
+export interface TaggedThreadFields {
+  tag_id: number;
+  tag_name: string;
+  thread_id: number;
+}

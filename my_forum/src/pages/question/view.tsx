@@ -20,6 +20,10 @@ import {
   getThreadQueryKey,
   requestGetThread,
 } from "../../services/forum/get-thread.ts";
+import {
+  requestGetThreadTags,
+  threadTagsQueryKey,
+} from "../../services/forum/get-thread-tags.ts";
 
 const tags = [
   "Tag azaaa",
@@ -41,7 +45,10 @@ export function ViewQuestionPage() {
       enabled: !!id,
     },
   );
-  console.log(data);
+  const { data: tagsData } = useQuery(threadTagsQueryKey, () =>
+    requestGetThreadTags(id || ""),
+  );
+
   return (
     <Box>
       <LoadingOverlay visible={isLoading} />
@@ -93,9 +100,12 @@ export function ViewQuestionPage() {
                   )}
                 </Box>
                 <Group spacing="sm">
-                  {tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
+                  {tagsData &&
+                    tagsData.results.map((tagModel) => (
+                      <Badge key={tagModel.pk}>
+                        {tagModel.fields.tag_name}
+                      </Badge>
+                    ))}
                 </Group>
               </Stack>
               <Divider my="md" />
