@@ -21,12 +21,12 @@ export default function SignUp() {
     const navigate = useNavigate();
     const handleSignIn = () =>{
         navigate("/signin")
-    } 
+    }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      username: data.get('email'),
       password: data.get('password'),
     });
   };
@@ -93,7 +93,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              
+
             </Grid>
             <Button
               type="submit"
@@ -112,7 +112,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-    
+
       </Container>
     </ThemeProvider>
   );

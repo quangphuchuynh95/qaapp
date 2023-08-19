@@ -31,9 +31,9 @@ export function ImageUploader({
           }
         }}
         type="file"
+        accept="image/png, image/gif, image/jpeg"
         ref={ref}
         style={{ display: "none" }}
-        accept="image/png, image/gif, image/jpeg"
       />
     </>
   );
