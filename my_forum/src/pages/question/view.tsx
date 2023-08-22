@@ -7,6 +7,7 @@ import {
   Button,
   Divider,
   Group,
+  Header,
   LoadingOverlay,
   Paper,
   Stack,
@@ -24,17 +25,9 @@ import {
   requestGetThreadTags,
   threadTagsQueryKey,
 } from "../../services/forum/get-thread-tags.ts";
-
-const tags = [
-  "Tag azaaa",
-  "Tag bzaaa",
-  "Tag czaaa",
-  "Tag dzaaa",
-  "Tag ezaaa",
-  "Tag fzaaa",
-];
-
-const items = [1, 2];
+import { AnswerForm } from "../../components/answer-form";
+import { ThreadAnswers } from "../../components/thread-answers/thread-answers.tsx";
+import { ThreadComments } from "../../components/thread-comments";
 
 export function ViewQuestionPage() {
   const { id } = useParams<"id">();
@@ -63,88 +56,50 @@ export function ViewQuestionPage() {
           </NavLink>
         </Box>
       </Group>
-      {items.map((item) => (
-        <Paper withBorder p="xl" key={item} mb="xl">
-          <Group align="start">
-            <Box>
-              <Stack align="center">
-                <ActionIcon
-                  color="blue"
-                  size="lg"
-                  radius="xl"
-                  variant="outline"
-                >
-                  <IconThumbUp size="1.625rem" />
-                </ActionIcon>
-                <Text fz="lg" fw={600}>
-                  99
-                </Text>
-                <ActionIcon size="lg" radius="xl" variant="outline">
-                  <IconThumbDown size="1.625rem" />
-                </ActionIcon>
-              </Stack>
-            </Box>
-            <Box sx={{ flex: 1 }}>
-              <Stack align="start">
-                <Group>
-                  <Avatar src={demoAvatarImage} color="blue" radius="sm" />
-                  {data?.fields?.creator_name || data?.fields?.creator_email}
-                </Group>
-                <Box>
-                  {data?.fields?.content && (
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: data.fields.content,
-                      }}
-                    />
-                  )}
-                </Box>
-                <Group spacing="sm">
-                  {tagsData &&
-                    tagsData.results.map((tagModel) => (
-                      <Badge key={tagModel.pk}>
-                        {tagModel.fields.tag_name}
-                      </Badge>
-                    ))}
-                </Group>
-              </Stack>
-              <Divider my="md" />
-              <Stack>
-                <Group>
-                  <Avatar
-                    src={demoAvatarImage}
-                    color="blue"
-                    radius="sm"
-                    size="sm"
+      <Paper withBorder p="xl" mb="xl">
+        <Group align="start">
+          <Box>
+            <Stack align="center">
+              <ActionIcon color="blue" size="lg" radius="xl" variant="outline">
+                <IconThumbUp size="1.625rem" />
+              </ActionIcon>
+              <Text fz="lg" fw={600}>
+                99
+              </Text>
+              <ActionIcon size="lg" radius="xl" variant="outline">
+                <IconThumbDown size="1.625rem" />
+              </ActionIcon>
+            </Stack>
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Stack align="start">
+              <Group>
+                <Avatar src={demoAvatarImage} color="blue" radius="sm" />
+                {data?.fields?.creator_name || data?.fields?.creator_email}
+              </Group>
+              <Box>
+                {data?.fields?.content && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: data.fields.content,
+                    }}
                   />
-                  <Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Maecenas pharetra convallis posuere morbi leo urna
-                    molestie at. Et egestas quis ipsum suspendisse ultrices
-                    gravida dictum
-                  </Text>
-                </Group>
-                <Group>
-                  <Avatar
-                    src={demoAvatarImage}
-                    color="blue"
-                    radius="sm"
-                    size="sm"
-                  />
-                  <Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Maecenas pharetra convallis posuere morbi leo urna
-                    molestie at. Et egestas quis ipsum suspendisse ultrices
-                    gravida dictum
-                  </Text>
-                </Group>
-              </Stack>
-            </Box>
-          </Group>
-        </Paper>
-      ))}
+                )}
+              </Box>
+              <Group spacing="sm">
+                {tagsData &&
+                  tagsData.results.map((tagModel) => (
+                    <Badge key={tagModel.pk}>{tagModel.fields.tag_name}</Badge>
+                  ))}
+              </Group>
+            </Stack>
+            <Divider my="md" />
+            {id && <ThreadComments id={id} />}
+          </Box>
+        </Group>
+      </Paper>
+      {id && <ThreadAnswers id={id} />}
+      {id && <AnswerForm id={id} />}
     </Box>
   );
 }
