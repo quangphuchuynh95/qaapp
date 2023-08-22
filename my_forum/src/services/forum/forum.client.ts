@@ -12,6 +12,8 @@ export interface ThreadFields {
   content: string;
   creator_email: string;
   creator_name: string;
+  approver_name: string;
+  approver_email: string;
   created: string;
 }
 

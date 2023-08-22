@@ -1,12 +1,17 @@
 import { Box, Button, Group, Paper, TextInput, Title } from "@mantine/core";
-import { useState } from "react";
 import { DetailEditor } from "../create-question-form/detail-editor";
 import { useForm } from "@mantine/form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { requestCreateThread } from "../../services/forum/create-thread.ts";
 import { getThreadQueryKey } from "../../services/forum/get-thread.ts";
 
-export function AnswerForm({ id }: { id: string }) {
+export function AnswerForm({
+  id,
+  title,
+}: {
+  id: string | number;
+  title: string;
+}) {
   const queryClient = useQueryClient();
   const form = useForm({
     initialValues: {
@@ -35,7 +40,7 @@ export function AnswerForm({ id }: { id: string }) {
   return (
     <Box component="form" onSubmit={form.onSubmit(handleSubmit)}>
       <Title mb="md" order={4}>
-        Your answer
+        {title}
       </Title>
       <TextInput
         mb="md"
@@ -46,7 +51,7 @@ export function AnswerForm({ id }: { id: string }) {
       <DetailEditor {...form.getInputProps("content")} />
       <Group mt="md">
         <Button type="submit" loading={isLoading}>
-          Post answer
+          SUBMIT
         </Button>
       </Group>
     </Box>

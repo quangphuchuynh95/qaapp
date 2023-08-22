@@ -85,7 +85,7 @@ export function AccountPage() {
               }}
             />
             <Avatar
-              src={data?.fields?.avatar}
+              src={`${import.meta.env.VITE_API_URL}${data?.fields?.avatar}`}
               sx={{ width: 200, height: 200 }}
               onClick={() => inputRef.current?.click()}
             />

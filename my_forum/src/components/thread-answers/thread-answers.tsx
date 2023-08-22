@@ -38,7 +38,7 @@ export function ThreadAnswers({ id }: { id: string }) {
                     <IconThumbUp size="1.625rem" />
                   </ActionIcon>
                   <Text fz="lg" fw={600}>
-                    {/*{threadModel.fields}*/}
+                    99
                   </Text>
                   <ActionIcon size="lg" radius="xl" variant="outline">
                     <IconThumbDown size="1.625rem" />
@@ -47,6 +47,7 @@ export function ThreadAnswers({ id }: { id: string }) {
               </Box>
               <Box sx={{ flex: 1 }}>
                 <Stack align="start">
+                  <Text>Answer at {threadModel?.fields?.created}</Text>
                   <Group>
                     <Avatar src={demoAvatarImage} color="blue" radius="sm" />
                     {threadModel?.fields?.creator_name ||

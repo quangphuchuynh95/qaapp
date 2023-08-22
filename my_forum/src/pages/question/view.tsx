@@ -7,7 +7,6 @@ import {
   Button,
   Divider,
   Group,
-  Header,
   LoadingOverlay,
   Paper,
   Stack,
@@ -48,7 +47,7 @@ export function ViewQuestionPage() {
       <Group position="apart">
         <Box>
           <Title fw={400}>{data?.fields?.title}</Title>
-          <Text fz="xs">Asked 4 years, 5 months ago</Text>
+          <Text fz="xs">Asked at {data?.fields?.created}</Text>
         </Box>
         <Box>
           <NavLink to="/question/create">
@@ -92,6 +91,13 @@ export function ViewQuestionPage() {
                     <Badge key={tagModel.pk}>{tagModel.fields.tag_name}</Badge>
                   ))}
               </Group>
+              <Group>
+                Approved by:{" "}
+                {data?.fields?.approver_name || data?.fields?.approver_email}
+              </Group>
+              <Group>
+                <Button>Report</Button>
+              </Group>
             </Stack>
             <Divider my="md" />
             {id && <ThreadComments id={id} />}
@@ -99,7 +105,7 @@ export function ViewQuestionPage() {
         </Group>
       </Paper>
       {id && <ThreadAnswers id={id} />}
-      {id && <AnswerForm id={id} />}
+      {id && <AnswerForm id={id} title="Your answer" />}
     </Box>
   );
 }
