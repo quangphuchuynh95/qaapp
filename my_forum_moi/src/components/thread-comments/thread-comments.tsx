@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getAllThreadsQueryKey,
   requestGetAllThreads,
-} from "../../services/forum/get-all-thread.ts";
+} from "../../services/forum/get-all-threads.ts";
 import { AnswerForm } from "../answer-form";
 
 export function ThreadComments({ id }: { id: string | number }) {

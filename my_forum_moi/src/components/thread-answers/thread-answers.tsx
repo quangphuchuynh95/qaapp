@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getAllThreadsQueryKey,
   requestGetAllThreads,
-} from "../../services/forum/get-all-thread.ts";
+} from "../../services/forum/get-all-threads.ts";
 import {
   ActionIcon,
   Avatar,
@@ -16,6 +16,7 @@ import {
 import { IconThumbDown, IconThumbUp } from "@tabler/icons-react";
 import demoAvatarImage from "../../assets/avata.jpeg";
 import { ThreadComments } from "../thread-comments";
+import {ThreadVotes} from "../thread-votes/thread-votes.tsx";
 
 export function ThreadAnswers({ id }: { id: string }) {
   const { data } = useQuery(getAllThreadsQueryKey(id), () =>
@@ -28,22 +29,7 @@ export function ThreadAnswers({ id }: { id: string }) {
           <Paper key={threadModel.pk} withBorder p="xl" mb="xl">
             <Group align="start">
               <Box>
-                <Stack align="center">
-                  <ActionIcon
-                    color="blue"
-                    size="lg"
-                    radius="xl"
-                    variant="outline"
-                  >
-                    <IconThumbUp size="1.625rem" />
-                  </ActionIcon>
-                  <Text fz="lg" fw={600}>
-                    99
-                  </Text>
-                  <ActionIcon size="lg" radius="xl" variant="outline">
-                    <IconThumbDown size="1.625rem" />
-                  </ActionIcon>
-                </Stack>
+                <ThreadVotes id={threadModel.pk} />
               </Box>
               <Box sx={{ flex: 1 }}>
                 <Stack align="start">
