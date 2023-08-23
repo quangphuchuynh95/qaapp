@@ -16,4 +16,5 @@ export async function requestLogin({
     },
   );
   localStorage.setItem(AUTH_LOCALSTORAGE_KEY, data.token);
+  return data
 }
