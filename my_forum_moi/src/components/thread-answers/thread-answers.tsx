@@ -16,7 +16,8 @@ import {
 import { IconThumbDown, IconThumbUp } from "@tabler/icons-react";
 import demoAvatarImage from "../../assets/avata.jpeg";
 import { ThreadComments } from "../thread-comments";
-import {ThreadVotes} from "../thread-votes/thread-votes.tsx";
+import { ThreadVotes } from "../thread-votes/thread-votes.tsx";
+import { UserAvatar } from "../user-avatar/user-avatar.tsx";
 
 export function ThreadAnswers({ id }: { id: string }) {
   const { data } = useQuery(getAllThreadsQueryKey(id), () =>
@@ -34,11 +35,9 @@ export function ThreadAnswers({ id }: { id: string }) {
               <Box sx={{ flex: 1 }}>
                 <Stack align="start">
                   <Text>Answer at {threadModel?.fields?.created}</Text>
-                  <Group>
-                    <Avatar src={demoAvatarImage} color="blue" radius="sm" />
-                    {threadModel?.fields?.creator_name ||
-                      threadModel?.fields?.creator_email}
-                  </Group>
+                  {threadModel?.fields?.creator_id && (
+                    <UserAvatar id={threadModel?.fields?.creator_id} />
+                  )}
                   <Box>
                     {threadModel?.fields?.content && (
                       <div

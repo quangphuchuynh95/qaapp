@@ -26,6 +26,7 @@ import {
 import { AnswerForm } from "../../components/answer-form";
 import { ThreadAnswers } from "../../components/thread-answers/thread-answers.tsx";
 import { ThreadVotes } from "../../components/thread-votes/thread-votes.tsx";
+import { UserAvatar } from "../../components/user-avatar/user-avatar.tsx";
 
 export function ViewQuestionPage() {
   const { id } = useParams<"id">();
@@ -59,10 +60,7 @@ export function ViewQuestionPage() {
           <Box>{id && <ThreadVotes id={id} />}</Box>
           <Box sx={{ flex: 1 }}>
             <Stack align="start">
-              <Group>
-                <Avatar src={demoAvatarImage} color="blue" radius="sm" />
-                {data?.fields?.creator_name || data?.fields?.creator_email}
-              </Group>
+              {data?.fields?.creator_id && <UserAvatar id={data?.fields?.creator_id} />}
               <Box>
                 {data?.fields?.content && (
                   <div
