@@ -14,3 +14,11 @@ export interface AccountFields {
   username: string;
   is_staff: boolean;
 }
+export interface CreateAccountRequestBody {
+  username: string;
+  password1: string;
+  password2: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+}
