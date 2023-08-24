@@ -1,5 +1,4 @@
-import { Avatar, Box, Group, Stack, Text } from "@mantine/core";
-import demoAvatarImage from "../../assets/avata.jpeg";
+import { Box, Stack, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import {
   getAllThreadsQueryKey,

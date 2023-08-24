@@ -10,6 +10,7 @@ import {
   authRequestQueryKey,
   requestAuthRefresh,
 } from "../../services/account/auth-refresh.ts";
+import { requestDeleteThreadVote } from "../../services/forum/delete-thread-vote.ts";
 
 export function ThreadVotes({ id }: { id: string | number }) {
   const queryClient = useQueryClient();
@@ -26,54 +27,70 @@ export function ThreadVotes({ id }: { id: string | number }) {
     },
   );
 
+  const count = (data?.results || []).reduce((sum, model) => {
+    return sum + (model.fields.is_upvote ? 1 : -1);
+  }, 0);
+
   const { mutate } = useMutation(requestCreateThreadVote, {
     onSuccess() {
       return queryClient.invalidateQueries(getThreadVotesKey(id));
     },
   });
 
+  const { mutate: mutate2 } = useMutation(requestDeleteThreadVote, {
+    onSuccess() {
+      return queryClient.invalidateQueries(getThreadVotesKey(id));
+    },
+  });
+
+  const upvoteId = data?.results?.find?.(
+    (t) => t.fields.user_id === userData?.pk && t.fields.is_upvote,
+  )?.pk;
+
+  const downVoteId = data?.results?.find?.(
+    (t) => t.fields.user_id === userData?.pk && !t.fields.is_upvote,
+  )?.pk;
+
   return (
     <Stack align="center">
       <ActionIcon
-        color={
-          data?.results?.some?.(
-            (t) => t.fields.user_id === userData?.pk && t.fields.is_upvote,
-          )
-            ? "blue"
-            : undefined
-        }
+        color={upvoteId ? "blue" : undefined}
         size="lg"
         radius="xl"
         variant="outline"
-        onClick={() =>
-          mutate({
-            thread: Number(id),
-            is_upvote: true,
-          })
-        }
+        onClick={() => {
+          if (downVoteId) {
+            mutate2(downVoteId);
+          }
+          !upvoteId
+            ? mutate({
+                thread: Number(id),
+                is_upvote: true,
+              })
+            : mutate2(upvoteId);
+        }}
       >
         <IconThumbUp size="1.625rem" />
       </ActionIcon>
       <Text fz="lg" fw={600}>
-        {data?.count}
+        {count}
       </Text>
       <ActionIcon
-        color={
-          data?.results?.some?.(
-            (t) => t.fields.user_id === userData?.pk && !t.fields.is_upvote,
-          )
-            ? "blue"
-            : undefined
-        }
+        color={downVoteId ? "blue" : undefined}
         size="lg"
         radius="xl"
         variant="outline"
-        onClick={() =>
-          mutate({
-            thread: Number(id),
-            is_upvote: false,
-          })
-        }
+        onClick={() => {
+          if (upvoteId) {
+            mutate2(upvoteId);
+          }
+          !downVoteId
+            ? mutate({
+                thread: Number(id),
+                is_upvote: false,
+              })
+            : mutate2(downVoteId);
+        }}
       >
         <IconThumbDown size="1.625rem" />
       </ActionIcon>
