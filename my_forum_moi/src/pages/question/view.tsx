@@ -1,7 +1,5 @@
 import { NavLink, useParams } from "react-router-dom";
 import {
-  ActionIcon,
-  Avatar,
   Badge,
   Box,
   Button,
@@ -12,8 +10,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconThumbUp, IconThumbDown } from "@tabler/icons-react";
-import demoAvatarImage from "../../assets/avata.jpeg";
 import { useQuery } from "@tanstack/react-query";
 import {
   getThreadQueryKey,
@@ -27,6 +23,7 @@ import { AnswerForm } from "../../components/answer-form";
 import { ThreadAnswers } from "../../components/thread-answers/thread-answers.tsx";
 import { ThreadVotes } from "../../components/thread-votes/thread-votes.tsx";
 import { UserAvatar } from "../../components/user-avatar/user-avatar.tsx";
+import { ThreadCategory } from "../../components/thread-category/thread-category.tsx";
 
 export function ViewQuestionPage() {
   const { id } = useParams<"id">();
@@ -60,7 +57,9 @@ export function ViewQuestionPage() {
           <Box>{id && <ThreadVotes id={id} />}</Box>
           <Box sx={{ flex: 1 }}>
             <Stack align="start">
-              {data?.fields?.creator_id && <UserAvatar id={data?.fields?.creator_id} />}
+              {data?.fields?.creator_id && (
+                <UserAvatar id={data?.fields?.creator_id} />
+              )}
               <Box>
                 {data?.fields?.content && (
                   <div
@@ -70,6 +69,9 @@ export function ViewQuestionPage() {
                   />
                 )}
               </Box>
+              {data?.fields?.category && (
+                <ThreadCategory id={data.fields.category} />
+              )}
               <Group spacing="sm">
                 {tagsData &&
                   tagsData.results.map((tagModel) => (
